@@ -1,4 +1,7 @@
 import {useState} from "react";
+import CardMusica from "./CardMusica";
+import Form from "./Form"
+import "./card.css";
 
 function App() {
     const [nomeArtista, setNomeArtista] = useState("");
@@ -6,51 +9,36 @@ function App() {
 
     const [musicas, setMusica] = useState([]);
 
-    function salvarMusica(){
-
-    if(nomeArtista === "" || nomeMusica === ""){
-        alert("Preencha os campos para salvar sua música na lista!");
-      }
-
-    else {
-      setMusica([...musicas, {
-        nomeDoArtista: nomeArtista,
-        nomeDaMusica: nomeMusica,
-      } ])
-    }
-  }
-
+    
     return(
 
-      <div>
-        <h1>Cadastro de Músicas</h1>
+      <div className="wrapper">
 
-        <form>
-          <input value={nomeArtista} 
-          onChange={(event) => setNomeArtista(event.target.value)} 
-          placeholder="Digite o nome do artista"/>
+        <h1>Monte sua Playlist!</h1>
 
-          <input value={nomeMusica} 
-          onChange={(event) => setNomeMusica(event.target.value)} 
-          placeholder="Digite o nome da musica"/>
+        <Form
+        nomeArtista = {nomeArtista}
+        nomeMusica = {nomeMusica}
+        musicas = {musicas}
+        setNomeArtista = {setNomeArtista}
+        setNomeMusica = {setNomeMusica}
+        setMusica = {setMusica}
+        />
 
-          <button type="button" onClick={salvarMusica}>Salvar</button>
-
-        </form>
-
-
+        <div className="listMusicas">
         {
-          musicas.map((musica)=>{
+          musicas.map((musica,index)=>{
             return(
-              <div>
-              <h1>{musica.nomeDoArtista}</h1>
-              <h1>{musica.nomeDaMusica}</h1>
-              </div>
+              <CardMusica musica={musica} key={index}/>
             )
           })
         }
+        </div>
+
       </div>
     )
 }
+
+
 
 export default App;
